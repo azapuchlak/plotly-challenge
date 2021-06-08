@@ -3,6 +3,33 @@
 //Ensure that console is working and webpage is connected
 console.log("app.js loaded");
 
+//---------------------------------------------------------------------------//
+
+//function stubs - placeholder for real function
+function DrawBargraph(sampleId) {
+    console.log(`DrawBargraph(${sampleId})`);
+}
+
+function DrawBubblechart(sampleId) {
+    console.log(`DrawBubblechart(${sampleId})`);
+}
+
+function ShowMetadata(sampleId) {
+    console.log(`ShowMetadata(${sampleId})`);
+}
+
+//---------------------------------------------------------------------------//
+
+//Event Handler for all drop down options to load
+function optionChanged(newSampleId) {
+    console.log(`User selected $(newSampleId)`);
+
+    DrawBargraph(newSampleId);
+    DrawBubblechart(newSampleId);
+    ShowMetadata(newSampleId);
+}
+
+//---------------------------------------------------------------------------//
 //Populate the data for initial bargraphs
 
 function InitDashboard() {
@@ -20,14 +47,26 @@ function InitDashboard() {
             selector.append("option")
             .text(sampleId)
             .property("value", sampleId);
-
         });
+
+//---------------------------------------------------------------------------//
+        //Create a stub. Use the first option that is in dropdown.
+
+        var id = sampleNames[0];
+
+        DrawBargraph(id);
+        DrawBubblechart(id);
+        ShowMetadata(id);
 
     });
 
 
-
     //update bargraph
+
+
+
+
+
     //update bubblechart
     //update demographic info
 }
