@@ -99,9 +99,16 @@ function ShowMetadata(sampleId) {
     var wfreq = result.wfreq;
     var info = [id, ethnicity, gender, age, location, bbtype, wfreq];
     
-    console.log(info);
-
-
+    //append the data to be a list that exists in the appropriate panel (the demo box)
+    //took sample-metadata from div in index where we're filling this in
+    var ul = d3.select("#sample-metadata").append("ul");
+    ul.append("li").text(`id: ${id}`);
+    ul.append("li").text(`ethnicity: ${ethnicity}`);
+    ul.append("li").text(`gender: ${gender}`);
+    ul.append("li").text(`age: ${age}`);
+    ul.append("li").text(`location: ${location}`);
+    ul.append("li").text(`bbtype: ${bbtype}`);
+    ul.append("li").text(`wfreq: ${wfreq}`);
     })
 }
 
