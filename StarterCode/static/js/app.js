@@ -8,6 +8,39 @@ console.log("app.js loaded");
 //function stubs - placeholder for real function
 function DrawBargraph(sampleId) {
     console.log(`DrawBargraph(${sampleId})`);
+
+    d3.json("/data/samples.json").then(data => {
+        //console.log(data);
+
+        var samples = data.samples;
+        var resultArray = samples.filter(s => s.id == sampleId);
+        //console.log(resultArray);
+        var result = resultArray[0];
+
+        var otu_ids = result.otu_ids;
+        var otu_labels = result.otu_labels;
+        var sample_values = result.sample_values;
+
+        yticks = otu_ids.slice(0,10).map(otuId => `OTU ${otuId}`).reverse();
+
+        var barData = {
+            x: sample_values.slice(0,10).reverse(),
+            y: yticks,
+            type: "bar",
+            text: otu_labels.slice(0,10).reverse(),
+            orientation: "h"
+        }
+
+        var barArray = [barData];
+
+        var barLayout = {
+            title: "Top 10 Bacteria Cultures Found",
+            margin: {t: 30, l: 150}
+        }
+        
+        Plotly.newPlot("bar", barArray, barLayout);
+
+    })
 }
 
 function DrawBubblechart(sampleId) {
@@ -30,6 +63,7 @@ function optionChanged(newSampleId) {
 }
 
 //---------------------------------------------------------------------------//
+
 //Populate the data for initial bargraphs
 
 function InitDashboard() {
@@ -50,9 +84,12 @@ function InitDashboard() {
         });
 
 //---------------------------------------------------------------------------//
+
         //Create a stub. Use the first option that is in dropdown.
 
         var id = sampleNames[0];
+
+        //Draw the graphs and the metadata
 
         DrawBargraph(id);
         DrawBubblechart(id);
@@ -60,15 +97,8 @@ function InitDashboard() {
 
     });
 
+//--------------------------------------------------------------------------------//
 
-    //update bargraph
-
-
-
-
-
-    //update bubblechart
-    //update demographic info
 }
 //call function
 InitDashboard();
