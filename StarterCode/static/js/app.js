@@ -35,6 +35,8 @@ function DrawBargraph(sampleId) {
 
         var barLayout = {
             title: "Top 10 Bacteria Cultures Found",
+            xaxis: {title: {text: 'Sample Values'}},
+            yaxis: {title: {text: 'OTU ID'}},
             margin: {t: 30, l: 150}
         }
         
@@ -73,6 +75,8 @@ function DrawBubblechart(sampleId) {
         
         var bubbleLayout = {
             title: "Bacteria Samples",
+            xaxis: {title: {text: 'OTU ID'}},
+            yaxis: {title: {text: 'Sample Values'}}
         }
 
         Plotly.newPlot("bubble", bubbleArray, bubbleLayout);
@@ -81,6 +85,9 @@ function DrawBubblechart(sampleId) {
 
 function ShowMetadata(sampleId) {
     console.log(`ShowMetadata(${sampleId})`);
+
+    // Reset demographic info when another dataslice is selected
+    document.getElementById("sample-metadata").innerHTML = "";
 
     d3.json("/data/samples.json").then(data => {
 
