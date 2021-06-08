@@ -45,6 +45,38 @@ function DrawBargraph(sampleId) {
 
 function DrawBubblechart(sampleId) {
     console.log(`DrawBubblechart(${sampleId})`);
+
+    d3.json("/data/samples.json").then(data => {
+
+        var samples = data.samples;
+        var resultArray = samples.filter(s => s.id == sampleId);
+        var result = resultArray[0];
+        //console.log(data);
+
+        var otu_ids = result.otu_ids;
+        var otu_labels = result.otu_labels;
+        var sample_values = result.sample_values;
+
+        var bubbleData = {
+            x: otu_ids,
+            y: sample_values,
+            mode: "markers",
+            marker: {
+                size: sample_values,
+                color: otu_ids,
+                opacity: 1
+            },
+            text: otu_labels
+        }
+
+        var bubbleArray = [bubbleData];
+        
+        var bubbleLayout = {
+            title: "Bacteria Samples",
+        }
+
+        Plotly.newPlot("bubble", bubbleArray, bubbleLayout);
+    })
 }
 
 function ShowMetadata(sampleId) {
