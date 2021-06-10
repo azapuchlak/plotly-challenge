@@ -9,7 +9,7 @@ console.log("app.js loaded");
 function DrawBargraph(sampleId) {
     console.log(`DrawBargraph(${sampleId})`);
 
-    d3.json("/data/samples.json").then(data => {
+    d3.json("data/samples.json").then(data => {
         //console.log(data);
 
         var samples = data.samples;
@@ -48,7 +48,7 @@ function DrawBargraph(sampleId) {
 function DrawBubblechart(sampleId) {
     console.log(`DrawBubblechart(${sampleId})`);
 
-    d3.json("/data/samples.json").then(data => {
+    d3.json("data/samples.json").then(data => {
 
         var samples = data.samples;
         var resultArray = samples.filter(s => s.id == sampleId);
@@ -89,7 +89,7 @@ function ShowMetadata(sampleId) {
     // Reset demographic info when another dataslice is selected
     document.getElementById("sample-metadata").innerHTML = "";
 
-    d3.json("/data/samples.json").then(data => {
+    d3.json("data/samples.json").then(data => {
 
     var metadata = data.metadata;
     var resultArray = metadata.filter(s => s.id == sampleId);
@@ -140,7 +140,7 @@ function InitDashboard() {
     //populate dropdown menu on index page
     var selector = d3.select("#selDataset");
 
-    d3.json("/data/samples.json").then(data => {
+    d3.json("data/samples.json").then(data => {
         console.log(data);
 
         var sampleNames = data.names;
